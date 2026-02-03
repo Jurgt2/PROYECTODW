@@ -1,0 +1,115 @@
+<div class="login-container">
+  <!-- Toast para mensajes -->
+  <p-toast></p-toast>
+
+  <!-- Card de Login -->
+  <div class="login-card-wrapper">
+    <p-card>
+      <!-- Header con logo y título -->
+      <div class="login-header">
+        <div class="logo-container">
+          <!-- Opción 1: Imagen desde URL externa -->
+          <img src="https://qacg.com/wp-content/uploads/2024/12/Header.jpg" alt="Logo" class="logo-image">
+          
+          <!-- Opción 2: Imagen desde carpeta assets -->
+          <!-- <img src="assets/images/logo.png" alt="Logo" class="logo-image"> -->
+          
+          <!-- Opción 3: Mantener el ícono (comentado) -->
+          <!-- <i class="pi pi-shield" style="font-size: 3rem; color: var(--primary-color)"></i> -->
+        </div>
+        <h1>Quality & Knowledge</h1>
+        <p class="subtitle">Sistema de Gestión de Riesgos</p>
+      </div>
+
+      <!-- Formulario de Login -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        
+        <!-- Campo Usuario -->
+        <div class="field">
+          <label for="username" class="block mb-2">
+            <i class="pi pi-user mr-2"></i>Usuario
+          </label>
+          <input
+            pInputText
+            id="username"
+            formControlName="username"
+            placeholder="Ingresa tu usuario"
+            class="w-full"
+            [class.ng-invalid]="hasError('username', 'required') || hasError('username', 'minlength')"
+            [class.ng-dirty]="loginForm.get('username')?.touched"
+          />
+          <small 
+            *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid" 
+            class="p-error block mt-1"
+          >
+            {{ getErrorMessage('username') }}
+          </small>
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="field">
+          <label for="password" class="block mb-2">
+            <i class="pi pi-lock mr-2"></i>Contraseña
+          </label>
+          <p-password
+            id="password"
+            formControlName="password"
+            placeholder="Ingresa tu contraseña"
+            [toggleMask]="true"
+            [feedback]="false"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            [class.ng-invalid]="hasError('password', 'required') || hasError('password', 'minlength')"
+            [class.ng-dirty]="loginForm.get('password')?.touched"
+          ></p-password>
+          <small 
+            *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" 
+            class="p-error block mt-1"
+          >
+            {{ getErrorMessage('password') }}
+          </small>
+        </div>
+
+        <!-- Checkbox Recordarme -->
+        <div class="field-checkbox">
+          <p-checkbox
+            formControlName="recordarme"
+            inputId="recordarme"
+            [binary]="true"
+          ></p-checkbox>
+          <label for="recordarme" class="ml-2">Recordarme</label>
+        </div>
+
+        <!-- Botón de Login -->
+        <button
+          pButton
+          pRipple
+          type="submit"
+          label="Iniciar Sesión"
+          icon="pi pi-sign-in"
+          class="w-full p-button-lg mt-4"
+          [loading]="loading"
+          [disabled]="loading"
+          style="height: 3.5rem; font-size: 1.1rem; font-weight: 600;"
+        ></button>
+
+      </form>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <small class="text-color-secondary">
+          <i class="pi pi-shield mr-1"></i>
+          Sistema Seguro • © 2026 SAKAI
+        </small>
+      </div>
+
+    </p-card>
+  </div>
+
+  <!-- Fondo decorativo -->
+  <div class="background-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+/* Estilos para el formulario de usuario */
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.field input,
+.field select {
+  width: 100%;
+}
+
+/* Estilos para los roles */
+.rol-admin {
+  background-color: #f44336;
+  color: white;
+}
+
+.rol-usuario {
+  background-color: #2196f3;
+  color: white;
+}

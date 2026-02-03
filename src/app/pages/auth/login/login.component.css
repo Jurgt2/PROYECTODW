@@ -1,0 +1,331 @@
+/* ==================================
+   CONTENEDOR PRINCIPAL
+   ================================== */
+.login-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #66d0ea 0%, #649bde 100%);
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* ==================================
+   CARD DE LOGIN
+   ================================== */
+.login-card-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 450px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.login-card-wrapper ::ng-deep .p-card {
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: none;
+  overflow: hidden;
+}
+
+.login-card-wrapper ::ng-deep .p-card-body {
+  padding: 2.5rem;
+}
+
+/* ==================================
+   HEADER DEL LOGIN
+   ================================== */
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-600) 100%);
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  animation: pulse 2s infinite;
+  overflow: hidden; /* Para que la imagen no se salga del círculo */
+}
+
+/* Estilos para la imagen del logo */
+.logo-container .logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* La imagen cubre todo el espacio manteniendo proporción */
+  /* Alternativa: object-fit: contain; - La imagen se ajusta sin recortar */
+}
+
+.login-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0.5rem 0 0 0;
+  letter-spacing: 2px;
+}
+
+.login-header .subtitle {
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0 0;
+}
+
+/* ==================================
+   FORMULARIO
+   ================================== */
+.login-form {
+  margin-top: 2rem;
+}
+
+.login-form .field {
+  margin-bottom: 1.5rem;
+}
+
+.login-form label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.login-form label i {
+  color: var(--primary-color);
+}
+
+/* Estilos para inputs */
+.login-form ::ng-deep input.p-inputtext {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--surface-border);
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.login-form ::ng-deep input.p-inputtext:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.login-form ::ng-deep input.p-inputtext.ng-invalid.ng-dirty {
+  border-color: var(--red-500);
+}
+
+/* Estilos para password */
+.login-form ::ng-deep .p-password {
+  width: 100%;
+}
+
+.login-form ::ng-deep .p-password input {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--surface-border);
+  transition: all 0.3s;
+}
+
+.login-form ::ng-deep .p-password input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Checkbox Recordarme */
+.field-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.field-checkbox label {
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Botón de login */
+.login-form ::ng-deep button[type="submit"] {
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem;
+  height: 3.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #5aa9a5 100%);
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-form ::ng-deep button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+  background: linear-gradient(135deg, #5568d3 0%, #3f868f 100%);
+}
+
+.login-form ::ng-deep button[type="submit"]:active:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.login-form ::ng-deep button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-form ::ng-deep button[type="submit"] .p-button-icon {
+  font-size: 1.2rem;
+}
+
+/* Mensajes de error */
+.p-error {
+  color: var(--red-500);
+  font-size: 0.875rem;
+}
+
+/* ==================================
+   FOOTER
+   ================================== */
+.login-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+.login-footer small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* ==================================
+   FONDO DECORATIVO
+   ================================== */
+.background-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 20s infinite ease-in-out;
+}
+
+.circle-1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  right: -50px;
+  animation-delay: 5s;
+}
+
+.circle-3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  right: 10%;
+  animation-delay: 10s;
+}
+
+/* ==================================
+   ANIMACIONES
+   ================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-50px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-100px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-50px) rotate(5deg);
+  }
+}
+
+/* ==================================
+   RESPONSIVE
+   ================================== */
+@media (max-width: 576px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .login-card-wrapper ::ng-deep .p-card-body {
+    padding: 1.5rem;
+  }
+
+  .login-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .logo-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo-container i {
+    font-size: 2rem !important;
+  }
+
+  .usuarios-prueba .text-sm {
+    font-size: 0.75rem;
+  }
+}
+
+/* ==================================
+   MODO OSCURO (si lo usas)
+   ================================== */
+:host-context(.dark) .login-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+:host-context(.dark) .usuarios-prueba code {
+  background: var(--surface-200);
+  color: var(--primary-400);
+}

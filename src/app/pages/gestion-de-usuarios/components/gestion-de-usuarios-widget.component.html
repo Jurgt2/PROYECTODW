@@ -1,0 +1,95 @@
+<div class="p-6">
+  <h1 class="text-3xl font-bold mb-4">Gestión de Usuarios</h1>
+  <p class="text-gray-600 mb-6">Administra todos los usuarios del sistema</p>
+
+  <div class="mb-4">
+    <input pInputText type="text" [(ngModel)]="busqueda" (input)="filtrarUsuarios()" 
+           placeholder="Buscar usuarios..." class="w-full" />
+  </div>
+
+  <p-button label="Nuevo Usuario" icon="pi pi-plus" (onClick)="abrirDialogoNuevo()" class="mb-4"></p-button>
+
+  <p-table [value]="usuariosFiltrados" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.rol }}</td>
+        <td><p-tag [value]="usuario.estado" [severity]="usuario.estado === 'activo' ? 'success' : 'danger'"></p-tag></td>
+        <td>
+          <p-button icon="pi pi-pencil" (onClick)="editarUsuario(usuario)" [text]="true"></p-button>
+          <p-button icon="pi pi-trash" (onClick)="eliminarUsuario(usuario)" [text]="true" severity="danger"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Diálogo para Crear/Editar Usuario -->
+<p-dialog 
+  [header]="esEdicion ? 'Editar Usuario' : 'Nuevo Usuario'" 
+  [(visible)]="mostrarDialogo" 
+  [modal]="true" 
+  [style]="{width: '500px'}"
+  [draggable]="false">
+  
+  <div class="p-fluid">
+    <div class="field mb-4">
+      <label for="nombre">Nombre completo *</label>
+      <input pInputText id="nombre" [(ngModel)]="usuarioSeleccionado.nombre" type="text" placeholder="Ej: Juan Pérez" />
+    </div>
+
+    <div class="field mb-4">
+      <label for="email">Email *</label>
+      <input pInputText id="email" [(ngModel)]="usuarioSeleccionado.email" type="email" placeholder="juan.perez@empresa.com" />
+    </div>
+
+    <div class="field mb-4">
+      <label for="password">Contraseña *</label>
+      <input pInputText id="password" [(ngModel)]="usuarioSeleccionado.password" type="password" placeholder="Mínimo 6 caracteres" />
+      <small class="text-gray-500">Esta contraseña se usará para iniciar sesión en el sistema</small>
+    </div>
+
+    <div class="field mb-4">
+      <label for="rol">Rol *</label>
+      <select id="rol" [(ngModel)]="usuarioSeleccionado.rol" class="p-inputtext p-component w-full">
+        <option value="Administrador">Administrador</option>
+        <option value="Usuario">Usuario</option>
+      </select>
+    </div>
+
+    <div class="field mb-4">
+      <label for="departamento">Departamento *</label>
+      <input pInputText id="departamento" [(ngModel)]="usuarioSeleccionado.departamento" type="text" placeholder="Ej: TI" />
+    </div>
+
+    <div class="field mb-4">
+      <label for="telefono">Teléfono</label>
+      <input pInputText id="telefono" [(ngModel)]="usuarioSeleccionado.telefono" type="text" placeholder="+1 234 567 8900" />
+    </div>
+
+    <div class="field mb-4">
+      <label for="estado">Estado *</label>
+      <select id="estado" [(ngModel)]="usuarioSeleccionado.estado" class="p-inputtext p-component w-full">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" icon="pi pi-times" (onClick)="cerrarDialogo()" [text]="true"></p-button>
+    <p-button label="Guardar" icon="pi pi-check" (onClick)="guardarUsuario()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

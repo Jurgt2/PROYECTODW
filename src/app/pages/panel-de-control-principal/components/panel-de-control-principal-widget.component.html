@@ -1,0 +1,155 @@
+<div class="dashboard-container">
+  <!-- ========== ENCABEZADO ========== -->
+  <div class="surface-section px-4 py-5 md:px-6 lg:px-8">
+    <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
+      <div>
+        <div class="font-medium text-3xl text-900 mb-3"> 📊 Panel de Control Principal</div>
+        <div class="text-500 mb-5">Gestiona y monitorea todas las operaciones en tiempo real</div>
+      </div>
+      <div class="mt-3 lg:mt-0">
+        <span class="text-500 font-medium mr-2">Última actualización:</span>
+        <span class="text-900 font-medium">{{ fechaActual | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section px-4 md:px-6 lg:px-8">
+
+    <div class="mb-5">
+      <div class="flex justify-content-between align-items-center">
+        <h3 class="text-900 font-medium mb-3 text-xl">📈 Métricas Principales</h3>
+        <button pButton type="button" class="p-button-success" (click)="exportarExcel()">
+          <i class="pi pi-file-excel mr-2"></i> Exportar Excel
+        </button>
+      </div>
+    </div>
+
+    <!-- ========== GRILLA DE TARJETAS ========== -->
+    <div class="grid mb-6">
+
+      <!-- Tarjeta 1: Total de Riesgos -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="card mb-3 h-full">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div class="flex-grow-1">
+              <span class="block text-500 font-medium mb-3">Total de Riesgos</span>
+              <div class="text-900 font-medium text-3xl">{{ totalRiesgos }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-blue-100 border-round p-3" style="width:3.5rem;height:3.5rem">
+              <i class="pi pi-chart-bar text-blue-500 text-2xl"></i>
+            </div>
+          </div>
+          <span class="text-green-500 font-medium text-sm">✓ Total identificados</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2: Riesgos Críticos -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="card mb-3 h-full">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div class="flex-grow-1">
+              <span class="block text-500 font-medium mb-3">Riesgos Críticos</span>
+              <div class="text-900 font-medium text-3xl">{{ riesgosCriticos }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-red-100 border-round p-3" style="width:3.5rem;height:3.5rem">
+              <i class="pi pi-exclamation-triangle text-red-500 text-2xl"></i>
+            </div>
+          </div>
+          <span class="text-red-500 font-medium text-sm">⚠ Sin mitigar</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3: Riesgos Mitigados -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="card mb-3 h-full">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div class="flex-grow-1">
+              <span class="block text-500 font-medium mb-3">Riesgos Mitigados</span>
+              <div class="text-900 font-medium text-3xl">{{ riesgosMitigados }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-green-100 border-round p-3" style="width:3.5rem;height:3.5rem">
+              <i class="pi pi-check-circle text-green-500 text-2xl"></i>
+            </div>
+          </div>
+          <span class="text-green-500 font-medium text-sm">✓ Controlados</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4: Cambios Recientes -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="card mb-3 h-full">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div class="flex-grow-1">
+              <span class="block text-500 font-medium mb-3">Cambios Recientes</span>
+              <div class="text-900 font-medium text-3xl">{{ cambiosRecientes }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-orange-100 border-round p-3" style="width:3.5rem;height:3.5rem">
+              <i class="pi pi-sync text-orange-500 text-2xl"></i>
+            </div>
+          </div>
+          <span class="text-500 font-medium text-sm">📅 Últimos 7 días</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 5: Proyectos Activos -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="card mb-3 h-full">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div class="flex-grow-1">
+              <span class="block text-500 font-medium mb-3">Proyectos Activos</span>
+              <div class="text-900 font-medium text-3xl">{{ proyectosActivos }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-cyan-100 border-round p-3" style="width:3.5rem;height:3.5rem">
+              <i class="pi pi-briefcase text-cyan-500 text-2xl"></i>
+            </div>
+          </div>
+          <span class="text-500 font-medium text-sm">👜 En curso</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta 6: Usuarios Activos -->
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="card mb-3 h-full">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div class="flex-grow-1">
+              <span class="block text-500 font-medium mb-3">Usuarios Activos</span>
+              <div class="text-900 font-medium text-3xl">{{ usuariosActivos }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-purple-100 border-round p-3" style="width:3.5rem;height:3.5rem">
+              <i class="pi pi-users text-purple-500 text-2xl"></i>
+            </div>
+          </div>
+          <span class="text-500 font-medium text-sm">👥 En el sistema</span>
+        </div>
+      </div>
+
+    </div> <!-- Cierra grid de tarjetas -->
+
+    <!-- ========== ANÁLISIS Y TENDENCIAS ========== -->
+    <div class="mb-5">
+      <h3 class="text-900 font-medium mb-4 text-2xl">📊 Análisis y Tendencias</h3>
+    </div>
+
+    <!-- ========== SECCIÓN DE GRÁFICAS ========== -->
+    <div class="grid">
+
+      <!-- Gráfica 1: Distribución de Riesgos (Dona) -->
+      <div class="col-12 lg:col-6">
+        <div class="card h-full">
+          <h5 class="text-xl text-900 font-semibold mb-4">Distribución de Riesgos por Severidad</h5>
+          <p-chart type="doughnut" [data]="chartDataDistribucion" [options]="chartOptionsDistribucion" [style]="{'height':'350px'}"></p-chart>
+        </div>
+      </div>
+
+      <!-- Gráfica 2: Tendencia de Riesgos (Línea) -->
+      <div class="col-12 lg:col-6">
+        <div class="card h-full">
+          <h5 class="text-xl text-900 font-semibold mb-4">Tendencia de Riesgos (Últimos 6 Meses)</h5>
+          <p-chart type="line" [data]="chartDataTendencia" [options]="chartOptionsTendencia" [style]="{'height':'350px'}"></p-chart>
+        </div>
+      </div>
+
+    </div> <!-- Cierra grid de gráficas -->
+
+  </div> <!-- Cierra content-section -->
+</div> <!-- Cierra dashboard-container -->

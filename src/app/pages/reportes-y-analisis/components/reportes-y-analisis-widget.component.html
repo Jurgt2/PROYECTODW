@@ -1,0 +1,378 @@
+<div class="dashboard-container">
+  <!-- ========== ENCABEZADO ========== -->
+  <div class="surface-section pl-1 pr-2 py-5">
+    <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
+      <div>
+        <div class="font-medium text-3xl text-900 mb-3">📊 Reportes y Análisis - Matriz de Riesgos</div>
+        <div class="text-500 mb-5">Análisis detallado de riesgos identificados en los proyectos</div>
+      </div>
+      <div class="mt-3 lg:mt-0">
+        <button
+          pButton
+          label="Generar Reporte PDF"
+          icon="pi pi-file-pdf"
+          class="p-button-danger mr-2">
+        </button>
+        <button
+          pButton
+          label="Exportar Excel"
+          icon="pi pi-file-excel"
+          class="p-button-success">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section pl-1 pr-2">
+
+    <!-- ========== TARJETAS DE ESTADÍSTICAS DE RIESGOS ========== -->
+    <div class="grid mb-0 p-0">
+      <!-- Total Riesgos -->
+      <div class="col-12 md:col-6 lg:col-3">
+        <div class="card">
+          <div class="mb-3">
+            <span class="block text-500 font-medium mb-3">Total Riesgos</span>
+            <div class="text-900 font-bold text-3xl">{{ statsRiesgos.total }}</div>
+          </div>
+          <span class="text-blue-500 font-medium">Todos los proyectos</span>
+        </div>
+      </div>
+
+      <!-- Riesgos Críticos -->
+      <div class="col-12 md:col-6 lg:col-3">
+        <div class="card">
+          <div class="mb-3">
+            <span class="block text-500 font-medium mb-3">Riesgos Críticos</span>
+            <div class="text-900 font-bold text-3xl text-red-500">{{ statsRiesgos.criticos }}</div>
+          </div>
+          <span class="text-red-500 font-medium">Requieren atención inmediata</span>
+        </div>
+      </div>
+
+      <!-- Riesgos Altos -->
+      <div class="col-12 md:col-6 lg:col-3">
+        <div class="card">
+          <div class="mb-3">
+            <span class="block text-500 font-medium mb-3">Riesgos Altos</span>
+            <div class="text-900 font-bold text-3xl text-orange-500">{{ statsRiesgos.altos }}</div>
+          </div>
+          <span class="text-orange-500 font-medium">Monitoreo constante</span>
+        </div>
+      </div>
+
+      <!-- Riesgos Mitigados -->
+      <div class="col-12 md:col-6 lg:col-3">
+        <div class="card">
+          <div class="mb-3">
+            <span class="block text-500 font-medium mb-3">Riesgos Mitigados</span>
+            <div class="text-900 font-bold text-3xl text-green-500">{{ statsRiesgos.mitigados }}</div>
+          </div>
+          <span class="text-green-500 font-medium">Exitosamente controlados</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== GRÁFICAS DE ANÁLISIS ========== -->
+    <div class="grid mb-4 mt-4">
+      <!-- Gráfica: Distribución por Nivel de Riesgo -->
+      <div class="col-12">
+        <div class="card">
+          <h5 class="text-900 font-semibold mb-3">Distribución por Nivel de Riesgo</h5>
+          <p-chart type="doughnut" [data]="chartDataNiveles" [options]="chartOptionsNiveles" [style]="{'height': '300px'}"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== FILTROS DE REPORTE ========== -->
+    <div class="card mb-4">
+      <h5 class="text-900 font-semibold mb-3">Filtros de Reporte</h5>
+      <div class="grid">
+        <div class="col-12 md:col-3">
+          <label for="filtroProyecto" class="block text-900 font-medium mb-2">Proyecto</label>
+          <p-select
+            id="filtroProyecto"
+            [(ngModel)]="filtroProyecto"
+            [options]="proyectosDisponibles"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Todos los proyectos"
+            class="w-full"
+            (onChange)="aplicarFiltros()">
+          </p-select>
+        </div>
+
+        <div class="col-12 md:col-3">
+          <label for="filtroNivel" class="block text-900 font-medium mb-2">Nivel de Riesgo</label>
+          <p-select
+            id="filtroNivel"
+            [(ngModel)]="filtroNivel"
+            [options]="nivelesRiesgo"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Todos los niveles"
+            class="w-full"
+            (onChange)="aplicarFiltros()">
+          </p-select>
+        </div>
+
+        <div class="col-12 md:col-3">
+          <label for="filtroCategoria" class="block text-900 font-medium mb-2">Categoría</label>
+          <p-select
+            id="filtroCategoria"
+            [(ngModel)]="filtroCategoria"
+            [options]="categoriasRiesgo"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Todas las categorías"
+            class="w-full"
+            (onChange)="aplicarFiltros()">
+          </p-select>
+        </div>
+
+        <div class="col-12 md:col-3">
+          <label for="filtroEstado" class="block text-900 font-medium mb-2">Estado</label>
+          <p-select
+            id="filtroEstado"
+            [(ngModel)]="filtroEstado"
+            [options]="estadosRiesgo"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Todos los estados"
+            class="w-full"
+            (onChange)="aplicarFiltros()">
+          </p-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== TABLA DE RIESGOS DETALLADA ========== -->
+    <div class="card">
+      <div class="flex justify-content-between align-items-center mb-3">
+        <h5 class="text-900 font-semibold mb-0">Matriz de Riesgos Detallada</h5>
+        <button pButton icon="pi pi-plus" label="Agregar Riesgo" class="p-button-success" (click)="nuevoRiesgo()"></button>
+      </div>
+      
+      <p-table
+        [value]="riesgosFiltrados"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[5, 10, 20, 50]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} riesgos"
+        [globalFilterFields]="['id', 'descripcion', 'proyecto', 'categoria', 'responsable']"
+        responsiveLayout="scroll">
+
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <span class="text-xl text-900 font-bold">Riesgos Identificados</span>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="busquedaGlobal"
+                (input)="aplicarBusquedaGlobal($event)"
+                placeholder="Buscar riesgos..." />
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="proyecto">Proyecto <p-sortIcon field="proyecto"></p-sortIcon></th>
+            <th pSortableColumn="descripcion">Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
+            <th pSortableColumn="categoria">Categoría <p-sortIcon field="categoria"></p-sortIcon></th>
+            <th pSortableColumn="probabilidad">Probabilidad <p-sortIcon field="probabilidad"></p-sortIcon></th>
+            <th pSortableColumn="impacto">Impacto <p-sortIcon field="impacto"></p-sortIcon></th>
+            <th pSortableColumn="nivel">Nivel <p-sortIcon field="nivel"></p-sortIcon></th>
+            <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+            <th pSortableColumn="responsable">Responsable <p-sortIcon field="responsable"></p-sortIcon></th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-riesgo>
+          <tr *ngIf="editRowId !== riesgo.id">
+            <td>{{ riesgo.id }}</td>
+            <td>{{ riesgo.proyecto }}</td>
+            <td>
+              <span class="text-900 font-medium">{{ riesgo.descripcion }}</span>
+            </td>
+            <td>
+              <p-tag [value]="riesgo.categoria" [severity]="getSeverityCategoria(riesgo.categoria)"></p-tag>
+            </td>
+            <td>
+              <p-tag [value]="riesgo.probabilidad" [severity]="getSeverityProbabilidad(riesgo.probabilidad)"></p-tag>
+            </td>
+            <td>
+              <p-tag [value]="riesgo.impacto" [severity]="getSeverityImpacto(riesgo.impacto)"></p-tag>
+            </td>
+            <td>
+              <p-tag [value]="riesgo.nivel" [severity]="getSeverityNivel(riesgo.nivel)"></p-tag>
+            </td>
+            <td>
+              <p-tag [value]="riesgo.estado" [severity]="getSeverityEstado(riesgo.estado)"></p-tag>
+            </td>
+            <td>{{ riesgo.responsable }}</td>
+            <td>
+              <button
+                pButton
+                icon="pi pi-eye"
+                class="p-button-rounded p-button-text p-button-info"
+                pTooltip="Ver detalles"
+                tooltipPosition="top"
+                (click)="verDetalleRiesgo(riesgo)">
+              </button>
+              <button
+                pButton
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-text p-button-warning ml-1"
+                pTooltip="Editar"
+                tooltipPosition="top"
+                (click)="editarRiesgo(riesgo)">
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="editRowId === riesgo.id">
+            <td>{{ riesgo.id }}</td>
+            <td>
+              <input pInputText [(ngModel)]="editedRiesgo.proyecto" class="w-full" />
+            </td>
+            <td>
+              <input pInputText [(ngModel)]="editedRiesgo.descripcion" class="w-full" />
+            </td>
+            <td>
+              <p-select
+                [options]="categoriasRiesgo"
+                [(ngModel)]="editedRiesgo.categoria"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+                placeholder="Categoría">
+              </p-select>
+            </td>
+            <td>
+              <p-select
+                [options]="[
+                  {label: 'Muy Alta', value: 'Muy Alta'},
+                  {label: 'Alta', value: 'Alta'},
+                  {label: 'Media', value: 'Media'},
+                  {label: 'Baja', value: 'Baja'},
+                  {label: 'Muy Baja', value: 'Muy Baja'}
+                ]"
+                [(ngModel)]="editedRiesgo.probabilidad"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+                placeholder="Probabilidad">
+              </p-select>
+            </td>
+            <td>
+              <p-select
+                [options]="[
+                  {label: 'Muy Alto', value: 'Muy Alto'},
+                  {label: 'Alto', value: 'Alto'},
+                  {label: 'Medio', value: 'Medio'},
+                  {label: 'Bajo', value: 'Bajo'},
+                  {label: 'Muy Bajo', value: 'Muy Bajo'}
+                ]"
+                [(ngModel)]="editedRiesgo.impacto"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+                placeholder="Impacto">
+              </p-select>
+            </td>
+            <td>
+              <input pInputText [(ngModel)]="editedRiesgo.nivel" class="w-full" readonly />
+            </td>
+            <td>
+              <p-select
+                [options]="estadosRiesgo"
+                [(ngModel)]="editedRiesgo.estado"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+                placeholder="Estado">
+              </p-select>
+            </td>
+            <td>
+              <input pInputText [(ngModel)]="editedRiesgo.responsable" class="w-full" />
+            </td>
+            <td>
+              <button
+                pButton
+                icon="pi pi-check"
+                class="p-button-rounded p-button-success p-button-text"
+                pTooltip="Guardar"
+                tooltipPosition="top"
+                (click)="guardarEdicion()">
+              </button>
+              <button
+                pButton
+                icon="pi pi-times"
+                class="p-button-rounded p-button-danger p-button-text ml-1"
+                pTooltip="Cancelar"
+                tooltipPosition="top"
+                (click)="cancelarEdicion()">
+              </button>
+            </td>
+          </tr>
+  </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="10" class="text-center">No se encontraron riesgos</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+
+
+  </div>
+</div>
+
+<!-- ========== DIÁLOGO DE DETALLES DEL RIESGO ========== -->
+<p-dialog
+  [(visible)]="mostrarDialogDetalle"
+  [header]="'Detalle del Riesgo: ' + (riesgoSeleccionado?.id || '')"
+  [modal]="true"
+  [style]="{width: '50vw'}"
+  [breakpoints]="{'960px': '75vw', '640px': '90vw'}">
+  
+  <div *ngIf="riesgoSeleccionado">
+    <div class="grid">
+      <div class="col-12">
+        <h6 class="text-900 font-semibold mb-2">Información General</h6>
+        <p><strong>Proyecto:</strong> {{ riesgoSeleccionado.proyecto }}</p>
+        <p><strong>Descripción:</strong> {{ riesgoSeleccionado.descripcion }}</p>
+        <p><strong>Categoría:</strong> {{ riesgoSeleccionado.categoria }}</p>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <h6 class="text-900 font-semibold mb-2">Evaluación</h6>
+        <p><strong>Probabilidad:</strong> <p-tag [value]="riesgoSeleccionado.probabilidad" [severity]="getSeverityProbabilidad(riesgoSeleccionado.probabilidad)"></p-tag></p>
+        <p><strong>Impacto:</strong> <p-tag [value]="riesgoSeleccionado.impacto" [severity]="getSeverityImpacto(riesgoSeleccionado.impacto)"></p-tag></p>
+        <p><strong>Nivel:</strong> <p-tag [value]="riesgoSeleccionado.nivel" [severity]="getSeverityNivel(riesgoSeleccionado.nivel)"></p-tag></p>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <h6 class="text-900 font-semibold mb-2">Gestión</h6>
+        <p><strong>Estado:</strong> <p-tag [value]="riesgoSeleccionado.estado" [severity]="getSeverityEstado(riesgoSeleccionado.estado)"></p-tag></p>
+        <p><strong>Responsable:</strong> {{ riesgoSeleccionado.responsable }}</p>
+        <p><strong>Fecha Identificación:</strong> {{ riesgoSeleccionado.fechaIdentificacion | date:'dd/MM/yyyy' }}</p>
+      </div>
+
+      <div class="col-12">
+        <h6 class="text-900 font-semibold mb-2">Plan de Mitigación</h6>
+        <p>{{ riesgoSeleccionado.accionesMitigacion || 'No definido' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton label="Cerrar" icon="pi pi-times" class="p-button-text" (click)="mostrarDialogDetalle = false"></button>
+  </ng-template>
+</p-dialog>

@@ -1,13 +1,13 @@
-import { Component, computed, effect, ElementRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { AppMenu } from './app.menu';
+import { AppMenuComponent } from './app.menu';
 import { LayoutService } from '@/app/layout/service/layout.service';
 
 @Component({
     selector: 'app-sidebar',
     standalone: true,
-    imports: [AppMenu, RouterModule],
+    imports: [RouterModule, AppMenuComponent],
     template: `
         <div class="layout-sidebar">
             <app-menu></app-menu>
@@ -16,19 +16,14 @@ import { LayoutService } from '@/app/layout/service/layout.service';
 })
 export class AppSidebar implements OnInit, OnDestroy {
     layoutService = inject(LayoutService);
-
     router = inject(Router);
-
     el = inject(ElementRef);
-
     private outsideClickListener: ((event: MouseEvent) => void) | null = null;
-
     private destroy$ = new Subject<void>();
 
     constructor() {
         effect(() => {
             const state = this.layoutService.layoutState();
-
             if (this.layoutService.isDesktop()) {
                 if (state.overlayMenuActive) {
                     this.bindOutsideClickListener();
@@ -55,7 +50,6 @@ export class AppSidebar implements OnInit, OnDestroy {
                 const navEvent = event as NavigationEnd;
                 this.onRouteChange(navEvent.urlAfterRedirects);
             });
-
         this.onRouteChange(this.router.url);
     }
 
@@ -89,7 +83,6 @@ export class AppSidebar implements OnInit, OnDestroy {
                     }));
                 }
             };
-
             document.addEventListener('click', this.outsideClickListener);
         }
     }
@@ -104,7 +97,6 @@ export class AppSidebar implements OnInit, OnDestroy {
     private isOutsideClicked(event: MouseEvent): boolean {
         const topbarButtonEl = document.querySelector('.topbar-start > button');
         const sidebarEl = this.el.nativeElement;
-
         return !(
             sidebarEl?.isSameNode(event.target as Node) ||
             sidebarEl?.contains(event.target as Node) ||

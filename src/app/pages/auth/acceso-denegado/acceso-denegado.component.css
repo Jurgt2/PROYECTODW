@@ -1,0 +1,306 @@
+/* ==================================
+   CONTENEDOR PRINCIPAL
+   ================================== */
+.acceso-denegado-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 700px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ==================================
+   CARD
+   ================================== */
+.acceso-denegado-container ::ng-deep .acceso-denegado-card {
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+}
+
+.acceso-denegado-container ::ng-deep .p-card-body {
+  padding: 3rem;
+  text-align: center;
+}
+
+/* ==================================
+   ICONO
+   ================================== */
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 50%;
+  margin-bottom: 2rem;
+  animation: shake 0.8s ease-in-out;
+}
+
+/* ==================================
+   TÍTULO Y MENSAJE
+   ================================== */
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--red-500);
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.6s ease-out 0.2s backwards;
+}
+
+.message {
+  margin-bottom: 2rem;
+  animation: fadeIn 0.6s ease-out 0.4s backwards;
+}
+
+.message p {
+  margin-bottom: 1rem;
+}
+
+/* ==================================
+   INFORMACIÓN DEL USUARIO
+   ================================== */
+.user-info {
+  display: inline-block;
+  text-align: left;
+  background: var(--surface-50);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-item i {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.info-item span {
+  font-size: 1rem;
+}
+
+/* Badges de rol */
+.badge-admin {
+  display: inline-block;
+  background: var(--red-500);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.badge-usuario {
+  display: inline-block;
+  background: var(--blue-500);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+/* ==================================
+   ALERT BOX
+   ================================== */
+.alert-box {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid var(--blue-500);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  text-align: left;
+}
+
+.alert-box i {
+  color: var(--blue-500);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.alert-box p {
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ==================================
+   BOTONES
+   ================================== */
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.6s ease-out 0.6s backwards;
+}
+
+.actions button {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s;
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.actions button:active {
+  transform: translateY(0);
+}
+
+/* ==================================
+   TEXTO DE AYUDA
+   ================================== */
+.help-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--surface-border);
+  animation: fadeIn 0.6s ease-out 0.8s backwards;
+}
+
+.help-text i {
+  color: var(--primary-color);
+}
+
+/* ==================================
+   ANIMACIONES
+   ================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* ==================================
+   RESPONSIVE
+   ================================== */
+@media (max-width: 768px) {
+  .acceso-denegado-container {
+    padding: 1rem;
+  }
+
+  .acceso-denegado-container ::ng-deep .p-card-body {
+    padding: 2rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .icon-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .icon-container i {
+    font-size: 4rem !important;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+
+  .user-info {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .message p {
+    font-size: 0.95rem;
+  }
+
+  .alert-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .alert-box i {
+    margin: 0 auto;
+  }
+}
+
+/* ==================================
+   MODO OSCURO
+   ================================== */
+:host-context(.dark) .acceso-denegado-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+:host-context(.dark) .user-info {
+  background: var(--surface-100);
+}
+
+:host-context(.dark) .alert-box {
+  background: rgba(59, 130, 246, 0.15);
+}

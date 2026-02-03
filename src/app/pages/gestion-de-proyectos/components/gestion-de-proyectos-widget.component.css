@@ -1,0 +1,131 @@
+.dashboard-container {
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.content-section {
+  padding-bottom: 2rem;
+}
+
+/* Estilos personalizados para la tabla */
+::ng-deep .p-datatable {
+  .p-datatable-thead > tr > th {
+    background: #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
+    padding: 1rem;
+  }
+
+  .p-datatable-tbody > tr {
+    transition: all 0.2s;
+
+    &:hover {
+      background: #f8fafc !important;
+    }
+
+    > td {
+      padding: 1rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+/* Estilos para el timeline en el diálogo de detalles */
+.timeline-container {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 1rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -1.56rem;
+    top: 1.25rem;
+    bottom: -0.5rem;
+    width: 2px;
+    background: #e2e8f0;
+  }
+}
+
+.timeline-badge {
+  position: absolute;
+  left: -1.75rem;
+  top: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 1;
+}
+
+.timeline-content {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+}
+
+/* Barra de progreso personalizada */
+::ng-deep .custom-progressbar {
+  .p-progressbar-value {
+    transition: width 0.3s ease-in-out;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .timeline-container {
+    padding-left: 1.5rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Estilos para tags */
+::ng-deep {
+  .p-tag {
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+  }
+}
+
+/* Botones de acción */
+::ng-deep {
+  .p-button-rounded {
+    &.p-button-sm {
+      width: 2rem;
+      height: 2rem;
+      
+      .pi {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}

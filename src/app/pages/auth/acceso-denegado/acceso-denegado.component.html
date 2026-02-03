@@ -1,0 +1,94 @@
+<div class="acceso-denegado-container">
+  <div class="content-wrapper">
+    
+    <!-- Card principal -->
+    <p-card styleClass="acceso-denegado-card">
+      
+      <!-- Icono de error -->
+      <div class="icon-container">
+        <i class="pi pi-ban" style="font-size: 5rem; color: var(--red-500)"></i>
+      </div>
+
+      <!-- Título -->
+      <h1 class="title">Acceso Denegado</h1>
+
+      <!-- Mensaje -->
+      <div class="message">
+        <p class="text-lg mb-3">
+          Lo sentimos, <strong *ngIf="usuario">{{ usuario.nombre }}</strong>
+          <strong *ngIf="!usuario">usuario</strong>
+        </p>
+        <p class="text-color-secondary mb-3">
+          No tienes los permisos necesarios para acceder a esta página.
+        </p>
+        
+        <!-- Información del usuario -->
+        <div *ngIf="usuario" class="user-info">
+          <div class="info-item">
+            <i class="pi pi-user"></i>
+            <span><strong>Usuario:</strong> {{ usuario.username }}</span>
+          </div>
+          <div class="info-item">
+            <i class="pi pi-shield"></i>
+            <span><strong>Rol actual:</strong> 
+              <span [class]="usuario.rol === 'ADMIN' ? 'badge-admin' : 'badge-usuario'">
+                {{ usuario.rol }}
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Mensaje adicional -->
+        <div class="alert-box">
+          <i class="pi pi-info-circle"></i>
+          <p>
+            Esta sección está restringida a usuarios con rol de 
+            <strong>ADMINISTRADOR</strong>. 
+            Si crees que deberías tener acceso, contacta con tu administrador del sistema.
+          </p>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="actions">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Volver"
+          icon="pi pi-arrow-left"
+          class="p-button-outlined p-button-secondary"
+          (click)="volver()"
+        ></button>
+
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Ir al Inicio"
+          icon="pi pi-home"
+          class="p-button-primary"
+          (click)="irAlInicio()"
+        ></button>
+
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Cerrar Sesión"
+          icon="pi pi-sign-out"
+          class="p-button-outlined p-button-danger"
+          (click)="cerrarSesion()"
+        ></button>
+      </div>
+
+      <!-- Footer con ayuda -->
+      <div class="help-text">
+        <i class="pi pi-question-circle"></i>
+        <span>¿Necesitas ayuda? Contacta al administrador del sistema</span>
+      </div>
+
+    </p-card>
+
+  </div>
+</div>
